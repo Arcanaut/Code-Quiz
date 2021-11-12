@@ -13,6 +13,9 @@ const start = document.getElementById("C");
 const start = document.getElementById("D");
 
 
+var countdownTimer = setInterval('secondPassed()', 1000);
+const timeleft =timer.innerHTML
+
 //each question has scoped variables for each answer choice so that it can be used multiple times without affecting each other
 
 let questions = [
@@ -67,12 +70,27 @@ function renderQuestions(){
     choice.innerHTML = q.choiceD;
     runningQuestionIndex++;
 };
-function answerIsCorrect(){
-    document.getElementById(runningQuestionIndex)
-}
+
 
 //Countdown Timer
-let count = 6000*10;
+let count = 0;
+var quizTime = 60000;
+var timeLeft =quizTime-1000;
 function counterRender(){
-    if (count)
+    if(quizTime)
 }
+
+
+function checkAnswer(answer){
+    if(questions[runningQuestionIndex].correct) === answer) {
+        timeLeft++ 5000;
+    } else{
+
+    }
+
+
+
+    var countdownTimer = setInterval('secondPassed()', 1000);
+function answerIsCorrect(){};
+function answerIsWrong(){};
+
