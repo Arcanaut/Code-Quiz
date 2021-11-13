@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,57 +8,57 @@
     <link rel="stylesheet" href="./assets/css/style.css" />
     <title>Javascript Code Quiz</title>
 </head>
+
 <body>
     <header>
-        
-    </header>
-<main>
-    <div id="container">
-    <div id="start">
         <div id="viewHighScores">
 
         </div>
         <div id="timer">60</div>
         <div id="timerBG"></div>
-        <div id= "timeGauge"></div>
-        Coding Quiz Challenge!
-    </div>
-    <div id="quiz" style = "display: none;">
+        <div id="timeGauge"></div>
+    </header>
+    <main>
+        <div id="container">
+            <div id="start">
+                Coding Quiz Challenge!
+            </div>
+            <div id="quiz">
 
-    <div id ="question"><p>Question: </p>
-        <div id="choices">
-    <ul>
-        <button class="choice" id="A" onclick="checkAnswer('A')">
-        A
-        </button>
+                <div id="question">
+                    <p id="title"> </p>
+                    <div id="choices">
+                        <ul>
+                            <li>
+                                <button class="choice" id="A" > </button>
+                            </li>
+                            <li>
+                                <button class="choice" id="B" >
+                                </button></li>
+                            <li>
+                                <button class="choice" id="C" ></button>
+                            </li>
+                            <li>
+                                <button class="choice" id="D" ></button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="highscore" style="display: none;"></div>
 
-        <button class="choice" id="B" onclick="checkAnswer('B')">
-        B
-        
+        <body>
 
-        <button class= "choice" id="C" onclick="checkAnswer('C')">
-        C
-        </button>
+        </body>
 
-        <button class="choice" id="D" onclick="checkAnswer('D')">
-        D
-        </button>
-    </ul>
-</div>
-</div>
-</div>
-</div>
-<div id="highscore" style = "display: none;"></div>
-<body>
 
+
+
+
+
+    </main>
+    <script src="./assets/js/script.js"></script>
 </body>
 
-
-
-
-
-
-</main>
-<script src="./assets/js/script.js"></script>
-</body>
 </html>

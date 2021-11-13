@@ -1,4 +1,4 @@
-let lastQuestion = questions.length-1;
+
 let runningQuestionIndex = 0;
 
 
@@ -12,6 +12,7 @@ const B = document.getElementById("B");
 const C = document.getElementById("C");
 const D = document.getElementById("D");
 const highscore = document.getElementById("highscore");
+const title = document.getElementById("title");
 
 
 //each question has scoped variables for each answer choice so that it can be used multiple times without affecting each other
@@ -23,7 +24,7 @@ let questions = [
         choiceB:"curly brackets",
         choiceC:"quotes",
         choiceD:"brackets",
-        correct:"C",
+        correct:"quotes",
     },
     {
         question: "A very useful tool during development and debugging for print content is ____",
@@ -31,7 +32,7 @@ let questions = [
         choiceB: "console.log",
         choiceC: "terminal bash",
         choiceD:"Javascript",
-        correct: "B",
+        correct: "console.log",
 },
 {
     question: "Arrays in Javascript can be used to store ____",
@@ -39,7 +40,7 @@ let questions = [
     choiceB: "other arrays",
     choiceC: "booleans",
     choiceD: "All of the above",
-    correct: "D",
+    correct: "All of the above",
 },
     {
         question: "Commonly used data types include all of the following EXCEPT _____",
@@ -51,55 +52,55 @@ let questions = [
 },
 {
     question: "The condition in an if/else statement is enclosed in _____",
-    choiceA:  "quotes",
+    choiceA:  "parenthesis",
     choiceB: "curly brackets",
-    choiceC: "parenthesis",
+    choiceC: "quotes",
     choiceD: "square brackets",
-    correct: "C",
+    correct: "parenthesis",
 }
 ]
+let lastQuestion = questions.length-1;
 //this goes through the various questions in the array. 
+
+
+
 function renderQuestions(){
     let q = questions[runningQuestionIndex]
     //displays the current question and answers
-    question.innerHTML = "<p>" + q.question + "</p>";
-    choiceA.innerHTML = q.choiceA;
-    choiceB.innerHTML = q.choiceB;
-    choiceC.innerHTML = q.choiceC;
-    choiceD.innerHTML = q.choiceD;
-    //proceeds to next question 
-    runningQuestionIndex++;
+    title.innerHTML = q.question;
+    A.innerHTML = q.choiceA;
+    B.innerHTML = q.choiceB;
+    C.innerHTML = q.choiceC;
+    D.innerHTML = q.choiceD;
+    A.onclick = checkAnswer
+    B.onclick = checkAnswer
+    C.onclick = checkAnswer
+    D.onclick = checkAnswer
 };
 
-start.style.display ="none";
+function checkAnswer(event){
+    let q = questions[runningQuestionIndex]
+
+    console.log(event.target.innerHTML)
+    if (event.target.innerHTML !== q.correct) {alert("wrong!");
+
+    }
+    };
+
+// start.style.display ="none";
 renderQuestions();
 start.style.display ="block";
 
-let count
-const time =60000; 
-function renderCounter(){
-if (count <= time)
-counter.innerHTML = count;
-count++}
-else { count = 0;
-}
-Timer=setInterval(renderCounter, time)
-function checkAnswer(answer){
-    if(questions[runningQuestionIndex].correct time + 5000;) {
-
-    } else{time - 5000;
-
-    }
-};
-start.addEventListener("click",startQuiz)
 //start quiz
 
-function startQuiz(){
+/*function startQuiz(){
     start.style.display ="none";
     renderQuestions();
-    start.style.display ="block";
-    
+    start.style.display ="block"
+}*/
 
-var Countdown = setTimeout(Timer[Delay, 6000;]){
 
-}
+
+//add class remove class in css
+
+//for each loop
