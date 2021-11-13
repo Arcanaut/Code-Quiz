@@ -1,20 +1,18 @@
-let lastQuestionIndex = questions.length-1;
+let lastQuestion = questions.length-1;
 let runningQuestionIndex = 0;
-let q = questions[runningQuestionIndex];
+
 
 const start = document.getElementById("start");
-const start = document.getElementById("quiz");
-const start = document.getElementById("question");
-const start = document.getElementById("counter");
-const start = document.getElementById("timeGauge");
-const start = document.getElementById("A");
-const start = document.getElementById("B");
-const start = document.getElementById("C");
-const start = document.getElementById("D");
+const quiz = document.getElementById("quiz");
+const question = document.getElementById("question");
+const counter = document.getElementById("counter");
+const timeGauge = document.getElementById("timeGauge");
+const A = document.getElementById("A");
+const B = document.getElementById("B");
+const C = document.getElementById("C");
+const D = document.getElementById("D");
+const highscore = document.getElementById("highscore");
 
-
-var countdownTimer = setInterval('secondPassed()', 1000);
-const timeleft =timer.innerHTML
 
 //each question has scoped variables for each answer choice so that it can be used multiple times without affecting each other
 
@@ -60,37 +58,48 @@ let questions = [
     correct: "C",
 }
 ]
-
+//this goes through the various questions in the array. 
 function renderQuestions(){
     let q = questions[runningQuestionIndex]
+    //displays the current question and answers
     question.innerHTML = "<p>" + q.question + "</p>";
-    choice.innerHTML = q.choiceA;
-    choice.innerHTML = q.choiceB;
-    choice.innerHTML = q.choiceC;
-    choice.innerHTML = q.choiceD;
+    choiceA.innerHTML = q.choiceA;
+    choiceB.innerHTML = q.choiceB;
+    choiceC.innerHTML = q.choiceC;
+    choiceD.innerHTML = q.choiceD;
+    //proceeds to next question 
     runningQuestionIndex++;
 };
 
+start.style.display ="none";
+renderQuestions();
+start.style.display ="block";
 
-//Countdown Timer
-let count = 0;
-var quizTime = 60000;
-var timeLeft =quizTime-1000;
-function counterRender(){
-    if(quizTime)
+let count
+const time =60000; 
+function renderCounter(){
+if (count <= time)
+counter.innerHTML = count;
+count++}
+else { count = 0;
 }
-
-
+Timer=setInterval(renderCounter, time)
 function checkAnswer(answer){
-    if(questions[runningQuestionIndex].correct) === answer) {
-        timeLeft++ 5000;
-    } else{
+    if(questions[runningQuestionIndex].correct time + 5000;) {
+
+    } else{time - 5000;
 
     }
+};
+start.addEventListener("click",startQuiz)
+//start quiz
 
+function startQuiz(){
+    start.style.display ="none";
+    renderQuestions();
+    start.style.display ="block";
+    
 
+var Countdown = setTimeout(Timer[Delay, 6000;]){
 
-    var countdownTimer = setInterval('secondPassed()', 1000);
-function answerIsCorrect(){};
-function answerIsWrong(){};
-
+}
