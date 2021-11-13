@@ -1,5 +1,5 @@
 
-let runningQuestionIndex = 0;
+let currentQuestionIndex = 0;
 
 
 const start = document.getElementById("start");
@@ -67,13 +67,15 @@ let questions = [
     correct: "parenthesis",
 }
 ]
+
+
 let lastQuestion = questions.length-1;
 //this goes through the various questions in the array. 
 
 
 
 function renderQuestions(){
-    let q = questions[runningQuestionIndex]
+    let q = questions[currentQuestionIndex]
     //displays the current question and answers
     title.innerHTML = q.question;
     A.innerHTML = q.choiceA;
@@ -84,15 +86,19 @@ function renderQuestions(){
     B.onclick = checkAnswer
     C.onclick = checkAnswer
     D.onclick = checkAnswer
+    //proceeds to next question
+    
+    //for(currentQuestionIndex++ =<lastQuestion){};
 };
 
 //compares the answer submitted to the correct one
 function checkAnswer(event){
-    let q = questions[runningQuestionIndex]
+    let q = questions[currentQuestionIndex]
 
     console.log(event.target.innerHTML)
     if (event.target.innerHTML == q.correct) {feedbackC.style.visibility="visible";}
     else (feedbackW.style.visibility="visible");
+
 };
 
 // start.style.display ="none";
