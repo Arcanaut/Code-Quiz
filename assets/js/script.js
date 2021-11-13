@@ -14,12 +14,15 @@ const D = document.getElementById("D");
 const highscore = document.getElementById("highscore");
 const title = document.getElementById("title");
 
-//these will be later be styled to appear/disappear based on checkAnswer
-document.getElementById("answerCorrect");
-document.getElementById("answerWrong");
 
-answerCorrect.style.display="hidden";
-answerWrong.style.display="hidden";
+//these will be later be styled to appear/disappear based on checkAnswer
+var feedbackC = document.getElementById("answerCorrect")
+var feedbackW = document.getElementById("answerWrong")
+//answerCorrect.setAttribute.(hidden);
+feedbackC.style.visibility = "hidden";
+feedbackW.style.visibility = "hidden";
+// answerCorrect.style.display="hidden";
+// answerWrong.style.display="hidden";
 //each question has scoped variables for each answer choice so that it can be used multiple times without affecting each other
 
 let questions = [
@@ -88,8 +91,8 @@ function checkAnswer(event){
     let q = questions[runningQuestionIndex]
 
     console.log(event.target.innerHTML)
-    if (event.target.innerHTML !== q.correct, answerWrong.style.display="visible");
-    else (answerWrong.style.display="visible")
+    if (event.target.innerHTML == q.correct) {feedbackC.style.visibility="visible";}
+    else (feedbackW.style.visibility="visible");
 };
 
 // start.style.display ="none";
