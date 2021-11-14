@@ -72,10 +72,10 @@ let questions = [
 let lastQuestion = questions.length-1;
 //this goes through the various questions in the array. 
 
-
+var q;
 
 function renderQuestions(){
-    let q = questions[currentQuestionIndex]
+    q = questions[currentQuestionIndex]
     //displays the current question and answers
     title.innerHTML = q.question;
     A.innerHTML = q.choiceA;
@@ -88,7 +88,9 @@ function renderQuestions(){
     D.onclick = checkAnswer
     //proceeds to next question
     
-    //for(currentQuestionIndex++ =<lastQuestion){};
+    currentQuestionIndex++
+    console.log(currentQuestionIndex);
+
 };
 
 //compares the answer submitted to the correct one
@@ -96,9 +98,11 @@ function checkAnswer(event){
     let q = questions[currentQuestionIndex]
 
     console.log(event.target.innerHTML)
-    if (event.target.innerHTML == q.correct) {feedbackC.style.visibility="visible";}
+    if (event.target.innerHTML === q.correct) {feedbackC.style.visibility="visible";}
     else (feedbackW.style.visibility="visible");
 
+renderQuestions()
+console.log(currentQuestionIndex);
 };
 
 // start.style.display ="none";
@@ -113,13 +117,8 @@ start.style.display ="block";
     start.style.display ="block"
 }*/
 
-
+//variable currentQuestion
 
 //add class remove class in css
 
 //for each loop
-
-// {answerWrong.style.display="visible";
-// if (event.target.innerHTML == q.correct){answerCorrect.style.display
-// }
-//     }
