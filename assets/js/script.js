@@ -1,6 +1,6 @@
 let currentQuestionIndex = 0;
-const time = questions.length * 15;
-
+// const time = questions.length * 15;
+//set interval for 
 const start = document.getElementById("start");
 const quiz = document.getElementById("quiz");
 const question = document.getElementById("question");
@@ -100,12 +100,12 @@ function checkAnswer(event) {
 
         setTimeout(function () {
             feedbackC.style.visibility = "hidden";
-        }, 2000)
+        }, 1000)
     } else {
         feedbackW.style.visibility = "visible"
         setTimeout(function () {
             feedbackW.style.visibility = "hidden";
-        }, 2000)
+        }, 1000)
     }
 
     currentQuestionIndex++
