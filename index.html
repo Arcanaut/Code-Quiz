@@ -17,61 +17,29 @@
         
     </header>
     <main>
-        <div id="container">
-            
-            <div id="start"> Coding Quiz Challenge!</div>
-            <div class="container-fluid d-flex justify-content-center">
-                <div class="row">
-                    <div class="col-12 my-auto">
-                        <h3 id="timer" class="">
-                            <span class="" id="time-display"></span>
-                            <h3 id="timer-toggle" class="text-muted display-4 rounded px-4 d-none">Time: <span id="timeLeft">60</span></h3>
-                        </h3>
-                    </div>
-                </div>
-            </div>
-
-                <div id="question">
-                    <p id="title"> </p>
-                    <div id="quiz-body">
-                    <div id="choices">
-                        <ul>
-                            <li>
-                                <button class="choice" id="A" > 
-                                </button>
-                            </li>
-                            <li>
-                                <button class="choice" id="B" >
-                                </button>
-                            </li>
-                            <li>
-                                <button class="choice" id="C" >
-                                </button>
-                            </li>
-                            <li>
-                                <button class="choice" id="D" >
-                                </button>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="feedback" id="answerCorrect">
-            Correct!
-            </div>
-            <div class="feedback" id="answerWrong">
-            Incorrect!
-            </div>
-        </div>
-        <div id="highscore" style=display:hidden >
-        <h2>
-        quiz done
-        <p>
-        <span id="finalScore">Final Score</span>
-        </p>
-        </h2></div>
-        </div>
         <body>
+            <div class="timer-holder d-flex flex-column justify-content-center align-items-center bg-dark">
+                <h3 id="timer-toggle" class="text-muted display-4 rounded px-4 d-none">Time: <span id="timeLeft">0</span></h3>
+            </div>
+            <div class="container-fluid px-0">
+                <div id="quiz-body">
+                    <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center bg-dark">
+                       Code Quiz!</h1>
+                        <p class="lead text-light">How much do you know about javascript?
+                            Test your knowledge and try to get the high score!</p>
+                        <div>
+                            <button class="btn btn-light btn-width" onclick="start()">Begin</button>
+                            <a class="highscoreLink" onclick="getScore()" href="#"><button class="btn btn-light btn-width">highScore</button></a>
+                        </div>
+                        <div class="feedback" id="answer-correct">
+                            Correct!
+                            </div>
+                            <div class="feedback" id="answer-wrong">
+                            Incorrect!
+                            </div>
+                    </div>
+                </div>
+            </div>
         </body>
 
 

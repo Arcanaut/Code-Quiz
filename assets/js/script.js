@@ -1,112 +1,109 @@
-let currentQuestionIndex = 0;
+// let currentQuestionIndex = 0;
 // const time = questions.length * 15;
 //set interval for 
-const start = document.getElementById("start");
+const startId = document.getElementById("start");
 const quiz = document.getElementById("quiz");
 const question = document.getElementById("question");
-const counter = document.getElementById("counter");
-const timeGauge = document.getElementById("timeGauge");
-const A = document.getElementById("A");
-const B = document.getElementById("B");
-const C = document.getElementById("C");
-const D = document.getElementById("D");
 const highscore = document.getElementById("highscore");
 const title = document.getElementById("title");
 
-var score = 0;
-var currentQuestion = -1;
+//variables for score and timer functions
+var score = 0; /* Possibly set to 100. Intent is to make points = time remaining. */
+let currentQuestion = -1; /* <-- might need to make '0'*/
 var timeLeft = 0;
 var timer;
+
 const timerEl = document.querySelector("#timer-toggle");
 
 //these will be later be styled to appear/disappear based on checkAnswer
-var feedbackC = document.getElementById("answerCorrect")
-var feedbackW = document.getElementById("answerWrong")
-//answerCorrect.setAttribute.(hidden);
+var feedbackC = document.getElementById("answer-correct")
+var feedbackW = document.getElementById("answer-wrong")
+// //answerCorrect.setAttribute.(hidden);
 document.getElementsByClassName("feedback")
 feedbackC.style.visibility = "hidden";
 feedbackW.style.visibility = "hidden";
-// answerCorrect.style.display="hidden";
+answerCorrect.style.display="hidden";
 // answerWrong.style.display="hidden";
 //each question has scoped variables for each answer choice so that it can be used multiple times without affecting each other
-function timer() {
-    var start = Date.now();
 
-    setInterval(function () {
-        var delta = Date.now() - start;
 
-        document.querySelector("#time-display").innerHTML = 'Timer ' + Math.floor(delta / 1000);
+// After start is clicked, the timer begins to count down
+function start() {
+    // make the timer visible when begin button is clicked
+    timerEl.classList.replace("d-none", "d-block");
+
+    timeLeft = 100;
+    document.getElementById("timeLeft").innerHTML = timeLeft;
+
+    timer = setInterval(function () {
+        timeLeft--;
+        document.getElementById("timeLeft").innerHTML = timeLeft;
+
+        // If timer hits below 0, the game ends
+        if (timeLeft <= 0) {
+            clearInterval(timer);
+            endQuiz();
+        }
+
     }, 1000);
+
+    next();
 }
 
 
-
 const questions = [{
-        question: "String values must be enclosed in _____ when being assigned to variables",
-        choiceA: "commas",
-        choiceB: "curly brackets",
-        choiceC: "quotes",
-        choiceD: "brackets",
-        correct: "quotes",
+        questionTitle: "String values must be enclosed in _____ when being assigned to variables",
+        choices: ["commas", "curly brackets", "quotes", "brackets", "quotes"],
+        correct: "quotes"
     },
     {
-        question: "A very useful tool during development and debugging for print content is ____",
-        choiceA: "for loops",
-        choiceB: "console.log",
-        choiceC: "terminal bash",
-        choiceD: "Javascript",
-        correct: "console.log",
+        questionTitle: "A very useful tool during development and debugging for print content is ____",
+        choices: ["for loops", "console.log", "terminal bash", "Javascript", "console.log", ],
+        correct: "console.log"
     },
     {
-        question: "Arrays in Javascript can be used to store ____",
-        choiceA: "numbers and strings",
-        choiceB: "other arrays",
-        choiceC: "booleans",
-        choiceD: "All of the above",
-        correct: "All of the above",
+        questionTitle: "Arrays in Javascript can be used to store ____",
+        choices: ["numbers and strings", "other arrays", "booleans", "All of the above"],
+        correct: "All of the above"
     },
     {
-        question: "Commonly used data types include all of the following EXCEPT _____",
-        choiceA: "strings",
-        choiceB: "alerts",
-        choiceC: "booleans",
-        choiceD: "numbers",
-        correct: "booleans",
+        questionTitle: "Commonly used data types include all of the following EXCEPT _____",
+        choices: ["strings", "alerts", "numbers", "booleans"],
+        correct: "booleans"
     },
     {
-        question: "The condition in an if/else statement is enclosed in _____",
-        choiceA: "parenthesis",
-        choiceB: "curly brackets",
-        choiceC: "quotes",
-        choiceD: "square brackets",
-        correct: "parenthesis",
+        questionTitle: "The condition in an if/else statement is enclosed in _____",
+        choices: ["parenthesis", "curly brackets", "quotes", "square brackets", ],
+        correct: "parenthesis"
     }
 ]
 
 
-let lastQuestion = questions.length - 1;
+const lastQuestion = questions.length - 1;
 //this goes through the various questions in the array. 
 
 
+function next() {
+    questions++;
+
+    if (questions++ > lastQuestion) {
+        endQuiz();
+        return;
+    };
+}
+
 function renderQuestions() {
-    let q = questions[currentQuestionIndex]
+    let q = [questionTitle[questions]]
     //displays the current question and answers
-    title.innerHTML = q.question;
-    A.innerHTML = q.choiceA;
-    B.innerHTML = q.choiceB;
-    C.innerHTML = q.choiceC;
-    D.innerHTML = q.choiceD;
-    A.onclick = checkAnswer
-    B.onclick = checkAnswer
-    C.onclick = checkAnswer
-    D.onclick = checkAnswer
+    title.innerHTML = q.questions;
+
     //proceeds to next question
-    console.log(currentQuestionIndex);
+    console.log(questions);
 };
 
 //compares the answer submitted to the correct one
 function checkAnswer(event) {
-    let q = questions[currentQuestionIndex]
+    let q = questionTitle[questions]
     //    feedbackC.style.visibility = "hidden";
     // feedbackW.style.visibility = "hidden";
     console.log(q)
@@ -122,11 +119,10 @@ function checkAnswer(event) {
             feedbackW.style.visibility = "hidden";
         }, 1000)
     }
+    questions++
 
-    currentQuestionIndex++
-
-    if (currentQuestionIndex === questions.length) {
-        quizEnd()
+    if (questions === questions.length) {
+        endQuiz()
         return;
     } else {
         renderQuestions()
@@ -150,13 +146,13 @@ function getScore() {
 }
 
 
-function quizEnd() {
+function endQuiz() {
     clearInterval(timer);
 
     var quizContent = `
         <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center bg-dark">
         <h2 class="text-white">Game over!</h2>
-        <h3 class="text-white">You got a ` + score + ` /100!</h3>
+        <h3 class="text-white">Because of your speed and accuracy, you got ` + score + ` points!</h3>
         <h3 class="text-white">That means you got ` + score / 20 + ` questions correct!</h3>
         <input type="text" id="name" required="required" placeholder="Enter your name.">
         <button class="btn btn-light mt-1" onclick="setScore()">Set score!</button>
@@ -166,11 +162,26 @@ function quizEnd() {
 }
 
 
+//Deduct 10 seconds from the timer if user guesses wrong
+function incorrect() {
+    timeLeft -= 10;
+    score += 10;
+    next();
+}
 
-// start.style.display ="none";
+//Increase the score by 15 if the user guesses right
+function correct() {
+    score += 10;
+    timeLeft += 10;
+    next();
+}
 
-start.style.display = "block";
-renderQuestions()
+
+// startId.style.display ="none";
+
+// startId.style.display = "block";
+
+// renderQuestions()
 
 // listen for button click and then run startGame()
 document.querySelector("#start-questions").addEventListener("click", function () {
@@ -200,7 +211,7 @@ function startQuiz() {
             // If timer hits below 0, the game ends
             if (timeLeft <= 0) {
                 clearInterval(timer);
-                endGame();
+                endQuiz();
             }
 
         }, 1000);
@@ -219,6 +230,10 @@ function clearScore() {
 
     resetGame();
 }
+
+
+
+var quizContent = "<h2 class='text-white text-center'>" + questions[currentQuestion].questionTitle + "</h2>";
 
 //for each loop
 document.getElementById("highscore");
