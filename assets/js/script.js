@@ -13,6 +13,11 @@ const D = document.getElementById("D");
 const highscore = document.getElementById("highscore");
 const title = document.getElementById("title");
 
+var score = 0;
+var currentQuestion = -1;
+var timeLeft = 0;
+var timer;
+const timerEl = document.querySelector("#timer-toggle");
 
 //these will be later be styled to appear/disappear based on checkAnswer
 var feedbackC = document.getElementById("answerCorrect")
@@ -24,8 +29,19 @@ feedbackW.style.visibility = "hidden";
 // answerCorrect.style.display="hidden";
 // answerWrong.style.display="hidden";
 //each question has scoped variables for each answer choice so that it can be used multiple times without affecting each other
+function timer() {
+    var start = Date.now();
 
-let questions = [{
+    setInterval(function () {
+        var delta = Date.now() - start;
+
+        document.querySelector("#time-display").innerHTML = 'Timer ' + Math.floor(delta / 1000);
+    }, 1000);
+}
+
+
+
+const questions = [{
         question: "String values must be enclosed in _____ when being assigned to variables",
         choiceA: "commas",
         choiceB: "curly brackets",
@@ -86,7 +102,6 @@ function renderQuestions() {
     D.onclick = checkAnswer
     //proceeds to next question
     console.log(currentQuestionIndex);
-
 };
 
 //compares the answer submitted to the correct one
@@ -110,38 +125,100 @@ function checkAnswer(event) {
 
     currentQuestionIndex++
 
-    if(currentQuestionIndex  === questions.length){ 
+    if (currentQuestionIndex === questions.length) {
         quizEnd()
+        return;
     } else {
         renderQuestions()
     }
-
-
-
-
-
-
 };
 
-function quizEnd(){
 
+
+function getScore() {
+    var quizContent = `
+    <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center bg-dark">
+    <h2 class="text-white">` + localStorage.getItem("highscoreName") + `'s highscore is:</h2>
+    <h1 class="text-white">` + localStorage.getItem("highscore") + `</h1><br>
+    <button class="btn btn-danger" onclick="clearScore()">Clear HighScore</button>
+    <button class="btn btn-light mt-1" onclick="resetGame()">Play again!</button>
+    </div>
+    
+    `;
+
+    document.getElementById("quiz-body").innerHTML = quizContent;
 }
+
+
+function quizEnd() {
+    clearInterval(timer);
+
+    var quizContent = `
+        <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center bg-dark">
+        <h2 class="text-white">Game over!</h2>
+        <h3 class="text-white">You got a ` + score + ` /100!</h3>
+        <h3 class="text-white">That means you got ` + score / 20 + ` questions correct!</h3>
+        <input type="text" id="name" required="required" placeholder="Enter your name.">
+        <button class="btn btn-light mt-1" onclick="setScore()">Set score!</button>
+        </div>`;
+
+    document.getElementById("quiz-body").innerHTML = quizContent;
+}
+
+
 
 // start.style.display ="none";
 
 start.style.display = "block";
 renderQuestions()
-//start quiz
 
-/*function startQuiz(){
-    start.style.display ="none";
-    renderQuestions();
-    start.style.display ="block"
-}*/
+// listen for button click and then run startGame()
+document.querySelector("#start-questions").addEventListener("click", function () {
+    startGame();
+    timer();
+});
 
-//variable currentQuestion
+// listen for score click and then run showScores()
+document.querySelector("#btn-score-main").addEventListener("click", function () {
+    showScores();
+});
 
-//add class remove class in css
+// game logic
+
+function startQuiz() {
+    {
+        // make the timer visible when begin button is clicked
+        timerEl.classList.replace("d-none", "d-block");
+
+        timeLeft = 60;
+        document.getElementById("timeLeft").innerHTML = timeLeft;
+
+        timer = setInterval(function () {
+            timeLeft--;
+            document.getElementById("timeLeft").innerHTML = timeLeft;
+
+            // If timer hits below 0, the game ends
+            if (timeLeft <= 0) {
+                clearInterval(timer);
+                endGame();
+            }
+
+        }, 1000);
+
+        next();
+    }
+}
+// view scores logic
+function showScores() {
+    console.log("showScores() Initiated!")
+}
+
+function clearScore() {
+    localStorage.setItem("highscore", "");
+    localStorage.setItem("highscoreName", "");
+
+    resetGame();
+}
 
 //for each loop
 document.getElementById("highscore");
