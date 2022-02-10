@@ -5,11 +5,12 @@ const startId = document.getElementById("start");
 const quiz = document.getElementById("quiz");
 const question = document.getElementById("question");
 const highscore = document.getElementById("highscore");
-const title = document.getElementById("title");
+const choicesEl = document.getElementById("choices");
 
+//this goes through the various questions in the array. 
 //variables for score and timer functions
 var score = 0; /* Possibly set to 100. Intent is to make points = time remaining. */
-let currentQuestion = -1; /* <-- might need to make '0'*/
+let currentQuestionIndex = 0;
 var timeLeft = 0;
 var timer;
 
@@ -19,37 +20,12 @@ const timerEl = document.querySelector("#timer-toggle");
 var feedbackC = document.getElementById("answer-correct")
 var feedbackW = document.getElementById("answer-wrong")
 // //answerCorrect.setAttribute.(hidden);
-document.getElementsByClassName("feedback")
-feedbackC.style.visibility = "hidden";
-feedbackW.style.visibility = "hidden";
-answerCorrect.style.display="hidden";
+// document.getElementsByClassName("feedback")
+// feedbackC.style.visibility = "hidden";
+// feedbackW.style.visibility = "hidden";
+// answerCorrect.style.display="hidden";
 // answerWrong.style.display="hidden";
 //each question has scoped variables for each answer choice so that it can be used multiple times without affecting each other
-
-
-// After start is clicked, the timer begins to count down
-function start() {
-    // make the timer visible when begin button is clicked
-    timerEl.classList.replace("d-none", "d-block");
-
-    timeLeft = 100;
-    document.getElementById("timeLeft").innerHTML = timeLeft;
-
-    timer = setInterval(function () {
-        timeLeft--;
-        document.getElementById("timeLeft").innerHTML = timeLeft;
-
-        // If timer hits below 0, the game ends
-        if (timeLeft <= 0) {
-            clearInterval(timer);
-            endQuiz();
-        }
-
-    }, 1000);
-
-    next();
-}
-
 
 const questions = [{
         questionTitle: "String values must be enclosed in _____ when being assigned to variables",
@@ -79,47 +55,75 @@ const questions = [{
 ]
 
 
-const lastQuestion = questions.length - 1;
-//this goes through the various questions in the array. 
+// After start is clicked, the timer begins to count down
+function start() {
+    // make the timer visible when begin button is clicked
+    timerEl.classList.replace("d-none", "d-block");
 
+    timeLeft = 100;
+    timerEl.textContent = timeLeft;
 
-function next() {
-    questions++;
+    timer = setInterval(function () {
+        timeLeft--;
+        timerEl.textContent = timeLeft;
 
-    if (questions++ > lastQuestion) {
-        endQuiz();
-        return;
-    };
+        // If timer hits below 0, the game ends
+        if (timeLeft <= 0) {
+            clearInterval(timer);
+            endQuiz();
+        }
+
+    }, 1000);
+
+    renderQuestions();
 }
 
-function renderQuestions() {
-    let q = [questionTitle[questions]]
-    //displays the current question and answers
-    title.innerHTML = q.questions;
 
-    //proceeds to next question
-    console.log(questions);
+function renderQuestions() {
+    console.log('Yosemite Mudflap');
+    let q = questions[currentQuestionIndex]
+    let questionEl = document.getElementById("question-title");
+    questionEl.textContent = q.questionTitle;
+    choicesEl.innerHTML = '';
+    q.choices.forEach((choice, i) => {
+        const choiceButton = document.createElement("button")
+        choiceButton.setAttribute("value", choice)
+        choiceButton.textContent = i + 1 + ". " + choice;
+        choiceButton.onclick = checkAnswer;
+        choicesEl.appendChild(choiceButton);
+    })
+
 };
 
 //compares the answer submitted to the correct one
 function checkAnswer(event) {
-    let q = questionTitle[questions]
-    //    feedbackC.style.visibility = "hidden";
-    // feedbackW.style.visibility = "hidden";
-    console.log(q)
-    if (event.target.innerHTML === q.correct) {
-        feedbackC.style.visibility = "visible";
-
-        setTimeout(function () {
-            feedbackC.style.visibility = "hidden";
-        }, 1000)
+    if (this.value !== questions[currentQuestionIndex].correct) {
+    incorrect()
     } else {
-        feedbackW.style.visibility = "visible"
-        setTimeout(function () {
-            feedbackW.style.visibility = "hidden";
-        }, 1000)
+        correct()
+    };
+
+    timerEl.textContent = timeLeft;
+    currentQuestionIndex++
+    if(currentQuestionIndex === questions.length) {
+        endQuiz()
+    } else {
+        renderQuestions();
     }
-    questions++
+    
+    // if (event.target.innerHTML === q.correct) {
+    //     feedbackC.style.visibility = "visible";
+
+    //     setTimeout(function () {
+    //         feedbackC.style.visibility = "hidden";
+    //     }, 1000)
+    // } else {
+    //     feedbackW.style.visibility = "visible"
+    //     setTimeout(function () {
+    //         feedbackW.style.visibility = "hidden";
+    //     }, 1000)
+    // }
+
 
     if (questions === questions.length) {
         endQuiz()
@@ -166,16 +170,25 @@ function endQuiz() {
 function incorrect() {
     timeLeft -= 10;
     score += 10;
-    next();
+   
 }
 
 //Increase the score by 15 if the user guesses right
 function correct() {
     score += 10;
     timeLeft += 10;
-    next();
+    
 }
 
+ //     setTimeout(function () {
+    //         feedbackC.style.visibility = "hidden";
+    //     }, 1000)
+    // } else {
+    //     feedbackW.style.visibility = "visible"
+    //     setTimeout(function () {
+    //         feedbackW.style.visibility = "hidden";
+    //     }, 1000)
+    // }
 
 // startId.style.display ="none";
 
@@ -183,16 +196,9 @@ function correct() {
 
 // renderQuestions()
 
-// listen for button click and then run startGame()
-document.querySelector("#start-questions").addEventListener("click", function () {
-    startGame();
-    timer();
-});
+
 
 // listen for score click and then run showScores()
-document.querySelector("#btn-score-main").addEventListener("click", function () {
-    showScores();
-});
 
 // game logic
 
@@ -216,7 +222,7 @@ function startQuiz() {
 
         }, 1000);
 
-        next();
+        renderQuestions()
     }
 }
 // view scores logic
@@ -233,7 +239,7 @@ function clearScore() {
 
 
 
-var quizContent = "<h2 class='text-white text-center'>" + questions[currentQuestion].questionTitle + "</h2>";
+var quizContent = "<h2 class='text-white text-center'>" + questions[currentQuestionIndex].questionTitle + "</h2>";
 
 //for each loop
 document.getElementById("highscore");
