@@ -83,7 +83,7 @@ function renderQuestions() {
     console.log('Yosemite Mudflap');
     let q = questions[currentQuestionIndex]
     let questionEl = document.getElementById("question-title");
-    questionEl.textContent = q.questionTitle;
+    questionEl.textContent = questions.questionTitle;
     choicesEl.innerHTML = '';
     q.choices.forEach((choice, i) => {
         const choiceButton = document.createElement("button")
