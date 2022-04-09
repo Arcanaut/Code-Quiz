@@ -84,8 +84,27 @@ const questions = [{
 ]
 
 
-let lastQuestion = questions.length - 1;
-//this goes through the various questions in the array. 
+// After start is clicked, the timer begins to count down
+function start() {
+    // make the timer visible when begin button is clicked
+    timerEl.classList.replace("d-none", "d-block");
+    startId.
+    timeLeft = 100;
+    timerEl.textContent = timeLeft;
+
+    timer = setInterval(function () {
+        timeLeft--;
+        timerEl.textContent = timeLeft;
+
+        // If timer hits below 0, the game ends
+        if (timeLeft <= 0) {
+            clearInterval(timer);
+            endQuiz();
+        }
+    }, 1000);
+
+    renderQuestions();
+}
 
 
 function renderQuestions() {
@@ -124,12 +143,10 @@ function checkAnswer(event) {
     }
 
     currentQuestionIndex++
-
-    if (currentQuestionIndex === questions.length) {
-        quizEnd()
-        return;
+    if(currentQuestionIndex === questions.length) {
+        endQuiz()
     } else {
-        renderQuestions()
+        renderQuestions();
     }
 };
 
