@@ -1,25 +1,21 @@
 // let currentQuestionIndex = 0;
-// const time = questions.length * 15;
-//set interval for 
+
+
 const startButtonEl = document.getElementById("startButton");
 const quiz = document.getElementById("quiz");
-const question = document.getElementById("question");
+const questionsBodyEl = document.getElementById("questions");
 const highscore = document.getElementById("highscore");
 const choicesEl = document.getElementById("choices");
 const feedbackEl = document.getElementById("feedback");
 document.getElementById("initials")
 //this goes through the various questions in the array. 
 //variables for score and timer functions
-var score = 0; /* Possibly set to 100. Intent is to make points = time remaining. */
+var score = 0;
 let currentQuestionIndex = 0;
 var timeLeft = 0;
 var timer;
 
 const timerEl = document.querySelector("#timer-toggle");
-
-//these will be later be styled to appear/disappear based on checkAnswer
-var feedbackC = document.getElementById("answer-correct")
-var feedbackW = document.getElementById("answer-wrong")
 
 //each question has scoped variables for each answer choice so that it can be used multiple times without affecting each other
 
@@ -52,7 +48,7 @@ const questions = [{
 
 
 // After start is clicked, the timer begins to count down
-function start() {
+function startTimer() {
     // make the timer visible when begin button is clicked
     timerEl.classList.replace("d-none", "d-block");
 
@@ -76,11 +72,12 @@ function start() {
 }
 
 //TODO: Rewrite renderQuestions so it isn't read as 'undefined in browser' 
+//https://developer.mozilla.org/en-US/docs/Web/API/Node/childNodes
 function renderQuestions() {
     console.log('Yosemite Mudflap');
     let q = questions[currentQuestionIndex]
-    let questionEl = document.getElementById("question-title");
-    questionEl.textContent = questions.questionTitle;
+    let questionsEl = document.getElementById("question-title");
+    questionsEl.textContent = questions.questionTitle;
     choicesEl.innerHTML = '';
     q.choices.forEach((choice, i) => {
         const choiceButton = document.createElement("button")
@@ -108,18 +105,6 @@ function checkAnswer(event) {
         renderQuestions();
     }
     
-    // if (event.target.innerHTML === q.correct) {
-    //     feedbackC.style.visibility = "visible";
-
-    //     setTimeout(function () {
-    //         feedbackC.style.visibility = "hidden";
-    //     }, 1000)
-    // } else {
-    //     feedbackW.style.visibility = "visible"
-    //     setTimeout(function () {
-    //         feedbackW.style.visibility = "hidden";
-    //     }, 1000)
-    // }
 
 
     if (questions === questions.length) {
@@ -241,3 +226,12 @@ function startQuiz() {
 //     savedHighScore = JSON.parse(savedHighScore);
 //   }
 
+// //function createItem() {
+// 	localStorage.setItem('nameOfItem', 'value'); 
+// } 
+// createItem() // Creates a item named 'nameOfItem' and stores a value of 'value'
+
+// function getValue() {
+// 	return localStorage.getItem('nameOfItem');  
+// } // Gets the value of 'nameOfItem' and returns it
+// console.log(getValue()); //'value';
