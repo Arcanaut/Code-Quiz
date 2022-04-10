@@ -1,12 +1,12 @@
 // let currentQuestionIndex = 0;
 // const time = questions.length * 15;
 //set interval for 
-const startId = document.getElementById("start");
+const startButtonEl = document.getElementById("startButton");
 const quiz = document.getElementById("quiz");
 const question = document.getElementById("question");
 const highscore = document.getElementById("highscore");
 const choicesEl = document.getElementById("choices");
-
+const feedbackEl = document.getElementById("feedback");
 //this goes through the various questions in the array. 
 //variables for score and timer functions
 var score = 0; /* Possibly set to 100. Intent is to make points = time remaining. */
@@ -74,7 +74,8 @@ function start() {
         }
 
     }, 1000);
-
+    //changes the class of startButtonEl to "class" so that the css with the same name stops it from displaying
+    startButtonEl.setAttribute("class", "hidden")
     renderQuestions();
 }
 
