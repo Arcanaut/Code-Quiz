@@ -5,10 +5,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./assets/css/style.css" />
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/css/bootstrap.min.css"
         integrity="sha512-T584yQ/tdRR5QwOpfvDfVQUidzfgc2339Lc8uBDtcp/wYu80d7jwBgAxbyMh0a9YM9F8N3tdErpFI8iaGx6x5g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="./assets/css/style.css" />
     <title>Javascript Code Quiz</title>
 </head>
 
@@ -22,8 +23,8 @@
     <main>
 
         <body>
-            <div class="container-fluid px-0"></div>
-            <div class="timer-holder d-flex flex-column justify-content-center align-items-center bg-light">
+            <div class="container">
+            <div class="time">
                 <h3 id="timer-toggle" class="text-muted display-4 rounded px-4 d-none">Time: <span
                         id="timeLeft">0</span></h3>
             </div>
@@ -31,12 +32,11 @@
                 <button class="btn btn-light btn-width hidden">Leaderboard</button>
             </a>
             <div id="quiz-body">
-                <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center bg-dark">
+                <div class="justify-content-center align-items-center ">
                     <h1> Code Quiz!</h1>
-                    <p class="lead text-light">How much do you know about javascript?
-                        Test your knowledge and try to get the high score!</p>
+                    <p></p>
                     <div>
-                        <button id="startButton" class="btn btn-light btn-width" onclick="startQuiz()">Begin</button>
+                        <button id="startButton" class="button btn-light btn-width" onclick="startQuiz()">Begin</button>
 
                     </div>
                     <div id="questions">
@@ -46,6 +46,7 @@
 
                 </div>
             </div>
+        </div>
 
             <div class="feedback"></div>
 
