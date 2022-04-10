@@ -7,6 +7,7 @@ const question = document.getElementById("question");
 const highscore = document.getElementById("highscore");
 const choicesEl = document.getElementById("choices");
 const feedbackEl = document.getElementById("feedback");
+document.getElementById("initials")
 //this goes through the various questions in the array. 
 //variables for score and timer functions
 var score = 0; /* Possibly set to 100. Intent is to make points = time remaining. */
@@ -19,12 +20,7 @@ const timerEl = document.querySelector("#timer-toggle");
 //these will be later be styled to appear/disappear based on checkAnswer
 var feedbackC = document.getElementById("answer-correct")
 var feedbackW = document.getElementById("answer-wrong")
-// //answerCorrect.setAttribute.(hidden);
-// document.getElementsByClassName("feedback")
-// feedbackC.style.visibility = "hidden";
-// feedbackW.style.visibility = "hidden";
-// answerCorrect.style.display="hidden";
-// answerWrong.style.display="hidden";
+
 //each question has scoped variables for each answer choice so that it can be used multiple times without affecting each other
 
 const questions = [{
@@ -79,7 +75,7 @@ function start() {
     renderQuestions();
 }
 
-
+//TODO: Rewrite renderQuestions so it isn't read as 'undefined in browser' 
 function renderQuestions() {
     console.log('Yosemite Mudflap');
     let q = questions[currentQuestionIndex]
@@ -133,21 +129,32 @@ function checkAnswer(event) {
         renderQuestions()
     }
 };
+//TODO: Finish setScore save function
+function setScore(){ 
+    var initials = $name.value
 
-
-
-function getScore() {
-    var quizContent = `
-    <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center bg-dark">
-    <h2 class="text-white">` + localStorage.getItem("highscoreName") + `'s highscore is:</h2>
-    <h1 class="text-white">` + localStorage.getItem("highscore") + `</h1><br>
-    <button class="btn btn-danger" onclick="clearScore()">Clear HighScore</button>
-    <button class="btn btn-light mt-1" onclick="resetGame()">Play again!</button>
-    </div>
-    
-    `;
-
-    document.getElementById("quiz-body").innerHTML = quizContent;
+     // make sure the user didn't leave it blank
+     if (initials === "") {
+        alert("Please enter your initials");
+        return;
+    } else {
+        var highscores;
+        if (JSON.parse(localStorage.getItem("highscores")) !=null) {
+            highscores = JSON.parse(window.localStorage.getItem("highscores"));
+        } else {
+            //highscores array functions just like questions array
+            highscores = [];
+        };
+        // get the information for current user input
+        var newPlayerScore = {
+            initials: initials,
+            playerScore: score
+        };
+        highscores.push(newPlayerScore);
+        localStorage.setItem("highscores", JSON.stringify(highscores));
+        // send user to the high scores page
+        location.href = "leader-board.html";
+    };
 }
 
 
@@ -157,13 +164,14 @@ function endQuiz() {
     var quizContent = `
         <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center bg-dark">
         <h2 class="text-white">Game over!</h2>
+        <h3 class="text-white">You got ` + score / 20 + ` questions correct!</h3>
         <h3 class="text-white">Because of your speed and accuracy, you got ` + score + ` points!</h3>
-        <h3 class="text-white">That means you got ` + score / 20 + ` questions correct!</h3>
-        <input type="text" id="name" required="required" placeholder="Enter your name.">
-        <button class="btn btn-light mt-1" onclick="setScore()">Set score!</button>
+        
+        <input type="text" id="$name" required="required" placeholder="Enter initials">
+        <button class="btn btn-light mt-1" onclick="setScore()">Save score!</button>
         </div>`;
 
-    document.getElementById("quiz-body").innerHTML = quizContent;
+    document.getElementById("final-score").innerHTML = quizContent;
 }
 
 
@@ -215,21 +223,21 @@ function startQuiz() {
 }
 // view scores logic
 
-
-var saveScore = function() {
-    localStorage.setItem("highScore", JSON.stringify(highScore));
-  };
+//TODO: Remove old save function, or add JQuery so lines 227-242 work
+// var saveScore = function() {
+//     localStorage.setItem("highScore", JSON.stringify(highScore));
+//   };
   
-  var loadhighScore = function() {
-    var savedhighScore = localStorage.getItem("highScore");
-    // if there are no highScore, set highScore to an empty array and return out of the function
-    if (!savedHighScore) {
-      return false;
-    }
-    console.log("Saved highScore found!");
-    // else, load up saved highScore
+//   var loadhighScore = function() {
+//     var savedHighScore = localStorage.getItem("highScoreName", "highScore");
+//     // if there are no highScore, set highScore to an empty array and return out of the function
+//     if (!savedHighScore) {
+//       return false;
+//     }
+//     console.log("Saved highScore found!");
+//     // else, load up saved highScore
   
-    // parse into array of objects
-    savedHighScore = JSON.parse(savedHighScore);
-
+//     // parse into array of objects
+//     savedHighScore = JSON.parse(savedHighScore);
+//   }
 

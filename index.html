@@ -35,21 +35,31 @@
                         Test your knowledge and try to get the high score!</p>
                     <div>
                         <button id="startButton" class="btn btn-light btn-width" onclick="start()">Begin</button>
-                        <a class="highscoreLink" onclick="getScore()" href="highscorePage.html"><button
-                                class="btn btn-light btn-width hidden">HighScore</button></a>
+                        <a class="highscoreLink" onclick="getScore()" href="highscorePage.html">
+                            <button class="btn btn-light btn-width hidden">HighScore</button>
+                               </a>
                     </div>
                     <div id="questions">
                         <div id="question-title"></div>
                         <div id="choices"></div>
                     </div>
-                    
+
                 </div>
             </div>
 
             <div class="feedback"></div>
 
             </div>
-            
+            <div id="end-screen" >
+                
+                <p> <span id="final-score"></span>!</p>
+                <p>
+                    <!-- Enter initials: <input type="text" max="3" id="initials" />
+                    <button id="submit">Submit</button> -->
+                </p>
+            </div>
+
+            </div>
             </div>
 
             <body>
