@@ -181,23 +181,10 @@ function correct() {
     
 }
 
- //     setTimeout(function () {
-    //         feedbackC.style.visibility = "hidden";
-    //     }, 1000)
-    // } else {
-    //     feedbackW.style.visibility = "visible"
-    //     setTimeout(function () {
-    //         feedbackW.style.visibility = "hidden";
-    //     }, 1000)
-    // }
-
-// startId.style.display ="none";
-
-// startId.style.display = "block";
 
 // renderQuestions()
 
-
+var quizContent = "<h2 class='text-white text-center'>" + questions[currentQuestionIndex].questionTitle + "</h2>";
 
 // listen for score click and then run showScores()
 
@@ -227,20 +214,22 @@ function startQuiz() {
     }
 }
 // view scores logic
-function showScores() {
-    console.log("showScores() Initiated!")
-}
-
-function clearScore() {
-    localStorage.setItem("highscore", "");
-    localStorage.setItem("highscoreName", "");
-
-    resetGame();
-}
 
 
+var saveScore = function() {
+    localStorage.setItem("highScore", JSON.stringify(highScore));
+  };
+  
+  var loadhighScore = function() {
+    var savedhighScore = localStorage.getItem("highScore");
+    // if there are no highScore, set highScore to an empty array and return out of the function
+    if (!savedHighScore) {
+      return false;
+    }
+    console.log("Saved highScore found!");
+    // else, load up saved highScore
+  
+    // parse into array of objects
+    savedHighScore = JSON.parse(savedHighScore);
 
-var quizContent = "<h2 class='text-white text-center'>" + questions[currentQuestionIndex].questionTitle + "</h2>";
 
-//for each loop
-document.getElementById("highscore");
