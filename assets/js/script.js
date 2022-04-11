@@ -1,12 +1,10 @@
-
-
 const beginButtonEl = document.getElementById("beginButton");
 const quiz = document.getElementById("quiz");
 const questionsContainerEl = document.getElementById("question-container");
 const highscore = document.getElementById("highscore");
-const choicesEl = document.getElementById("choices");
 const feedbackEl = document.getElementById("feedback");
 const questionTitleEl = document.getElementById("questionTitle")
+const questionAnswersEl = document.getElementById("questionAnswers")
 document.getElementById("initials")
 //this goes through the various questions in the array. 
 //variables for score and timer functions
@@ -73,8 +71,10 @@ function startTimer() {
 
 //TODO: Rewrite renderQuestions so it isn't read as 'undefined in browser' 
 //https://developer.mozilla.org/en-US/docs/Web/API/Node/childNodes
+
+
 // function renderQuestions() {
-    
+
 //     console.log('Yosemite Mudflap');
 //     let q = questions[currentQuestionIndex]
 //     let questionsEl = document.getElementById("question-title");
@@ -90,35 +90,59 @@ function startTimer() {
 
 // };
 
-function renderQuestions(){
-    var currentQuestion = questions[currentQuestionIndex];
-    questionsContainerEl.children[0].textContent =currentQuestion.questionTitle
-    questionsContainerEl.choices.forEach((choice, i) => {
-                const choiceButton = document.createElement("button")
-                choiceButton.setAttribute("value", choice)
-                choiceButton.textContent = i + 1 + ". " + choice;
-                choiceButton.onclick = checkAnswer;
-                choicesEl.appendChild(choiceButton);
-            })
+function renderQuestions() {
+    var q = questions[currentQuestionIndex];
+    questionsContainerEl.children[0].textContent = q.questionTitle
+   
+   
+    var choiceButton = document.createElement("button");
+    choiceButton.textContent = q.choices[i];
+    questionAnswersEl.appendChild(choiceButton);
+     // erase old text
+     while (questionAnswersEl.hasChildNodes()) {
+        questionAnswersEl.removeChild(questionAnswersEl.lastChild);
+    };
+
+    for (var i = 0; i < q.choices.length; i++) {
+        // create buttons for each answer choice
+        var questionChoicesButton = document.createElement("button");
+        questionChoicesButton.textContent = q.choices[i];
+        questionAnswersEl.appendChild(questionChoicesButton);
+    };
+
+    // create click listener for each answer choice
+    questionAnswersEl.children[0].addEventListener("click", function(event) {
+        buttonClick(questionAnswersEl.children[0]);
+    });
+    questionAnswersEl.children[1].addEventListener("click", function(event) {
+        buttonClick(questionAnswersEl.children[1]);
+    });
+    questionAnswersEl.children[2].addEventListener("click", function(event) {
+        buttonClick(questionAnswersEl.children[2]);
+    });
+    questionAnswersEl.children[3].addEventListener("click", function(event) {
+        buttonClick(questionAnswersEl.children[3]);
+    });
+
 }
 
 
 //compares the answer submitted to the correct one
 function checkAnswer(event) {
     if (this.value !== questions[currentQuestionIndex].correct) {
-    incorrect()
+        incorrect()
     } else {
         correct()
     };
 
     timerEl.textContent = timeLeft;
     currentQuestionIndex++
-    if(currentQuestionIndex === questions.length) {
+    if (currentQuestionIndex === questions.length) {
         endQuiz()
     } else {
         renderQuestions();
     }
-    
+
 
 
     if (questions === questions.length) {
@@ -129,16 +153,16 @@ function checkAnswer(event) {
     }
 };
 //TODO: Finish setScore save function
-function setScore(){ 
+function setScore() {
     var initials = $name.value
 
-     // make sure the user didn't leave it blank
-     if (initials === "") {
+    // make sure the user didn't leave it blank
+    if (initials === "") {
         alert("Please enter your initials");
         return;
     } else {
         var highscores;
-        if (JSON.parse(localStorage.getItem("highscores")) !=null) {
+        if (JSON.parse(localStorage.getItem("highscores")) != null) {
             highscores = JSON.parse(window.localStorage.getItem("highscores"));
         } else {
             //highscores array functions just like questions array
@@ -178,20 +202,20 @@ function endQuiz() {
 function incorrect() {
     timeLeft -= 10;
     score += 10;
-   
+
 }
 
 //Increase the score by 15 if the user guesses right
 function correct() {
     score += 10;
     timeLeft += 10;
-    
+
 }
 
 
 // renderQuestions()
 
-var quizContent = "<h2 class='text-white text-center'>" + questions[currentQuestionIndex].questionTitle + "</h2>";
+// var quizContent = "<h2 class='text-white text-center'>" + questions[currentQuestionIndex].questionTitle + "</h2>";
 
 // listen for score click and then run showScores()
 
@@ -226,7 +250,7 @@ function startQuiz() {
 // var saveScore = function() {
 //     localStorage.setItem("highScore", JSON.stringify(highScore));
 //   };
-  
+
 //   var loadhighScore = function() {
 //     var savedHighScore = localStorage.getItem("highScoreName", "highScore");
 //     // if there are no highScore, set highScore to an empty array and return out of the function
@@ -235,7 +259,7 @@ function startQuiz() {
 //     }
 //     console.log("Saved highScore found!");
 //     // else, load up saved highScore
-  
+
 //     // parse into array of objects
 //     savedHighScore = JSON.parse(savedHighScore);
 //   }
