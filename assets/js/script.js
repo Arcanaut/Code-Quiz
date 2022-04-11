@@ -3,7 +3,7 @@ const quiz = document.getElementById("quiz");
 const questionsContainerEl = document.getElementById("question-container");
 const highscore = document.getElementById("highscore");
 const feedbackEl = document.getElementById("feedback");
-const questionTitleEl = document.getElementById("questionTitle")
+const questionTitleEl = document.getElementById("questionHeader")
 const questionAnswersEl = document.getElementById("questionAnswers")
 document.getElementById("initials")
 //this goes through the various questions in the array. 
@@ -112,16 +112,16 @@ function renderQuestions() {
 
     // create click listener for each answer choice
     questionAnswersEl.children[0].addEventListener("click", function(event) {
-        buttonClick(questionAnswersEl.children[0]);
+       checkAnswer(questionAnswersEl.children[0]);
     });
     questionAnswersEl.children[1].addEventListener("click", function(event) {
-        buttonClick(questionAnswersEl.children[1]);
+       checkAnswer(questionAnswersEl.children[1]);
     });
     questionAnswersEl.children[2].addEventListener("click", function(event) {
-        buttonClick(questionAnswersEl.children[2]);
+       checkAnswer(questionAnswersEl.children[2]);
     });
     questionAnswersEl.children[3].addEventListener("click", function(event) {
-        buttonClick(questionAnswersEl.children[3]);
+       checkAnswer(questionAnswersEl.children[3]);
     });
 
 }
