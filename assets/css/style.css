@@ -94,12 +94,16 @@ h3 {
   
 }
 
+/*index.html styling */
+
+
+/*Utilities*/
 /*Javascript will change the classes of certain elements to have this class and hide them when switched*/
 .hidden {
   display: none;
 }
 
-button:hover{
+.button:hover{
   background-color: rgb(209,144,238)
 
 }

@@ -5,66 +5,66 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/css/bootstrap.min.css"
         integrity="sha512-T584yQ/tdRR5QwOpfvDfVQUidzfgc2339Lc8uBDtcp/wYu80d7jwBgAxbyMh0a9YM9F8N3tdErpFI8iaGx6x5g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link rel="stylesheet" href="./assets/css/style.css" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
     <title>Javascript Code Quiz</title>
 </head>
 
 <body>
     <header>
-        <div id="viewHighScores">
 
-        </div>
-
+        <div id="viewHighScores"></div>
+        
     </header>
     <main>
 
-        <body>
-            <div class="container">
-            <div class="time">
-                <h3 id="timer-toggle" class="text-muted display-4 rounded px-4 d-none">Time: <span
-                        id="timeLeft">0</span></h3>
+<div> <a id="highScoreLink" onclick="getScore()" href="leader-board.html">
+            <button class="button">Leaderboard</button></div>
+        </a>
+        <div class="timer-holder d-flex flex-column justify-center align-items-center bg-light">
+            <h3 id="timer-toggle" class="text-muted display-4 rounded px-4 d-none">Time: <span id="timeLeft">0</span>
+            </h3>
+       
+       
+
+        
+            <h1> Code Quiz!</h1>
+            <p></p>
+            <div>
+                <button id="beginButton" class="button " onclick="startQuiz()">
+                    Begin
+                </button>
+
             </div>
-            <a class="highscoreLink" onclick="getScore()" href="leader-board.html">
-                <button class="btn btn-light btn-width hidden">Leaderboard</button>
-            </a>
-            <div id="quiz-body">
-                <div class="justify-content-center align-items-center ">
-                    <h1> Code Quiz!</h1>
-                    <p></p>
-                    <div>
-                        <button id="startButton" class="button btn-light btn-width" onclick="startQuiz()">Begin</button>
-
-                    </div>
-                    <div id="questions">
-                        <div id="question-title"></div>
-                        <div id="choices"></div>
-                    </div>
-
+            <div id="questions-container">
+                <h2 id="question-title"> placeholder</h2>
+                <div id="choices">
+                    <p class="choice-text"></p>
                 </div>
             </div>
+ </div>
+
+
+        
+
+        <div class="feedback"></div>
+
+        </div>
+        <div id="end-screen">
+
+            <p> <span id="final-score"></span>!</p>
+            <p>
+                <!-- Enter initials: <input type="text" max="3" id="initials" />
+                    <button id="submit">Submit</button> -->
+            </p>
         </div>
 
-            <div class="feedback"></div>
+        </div>
+        </div>
 
-            </div>
-            <div id="end-screen">
-
-                <p> <span id="final-score"></span>!</p>
-                <p>
-                    <!-- Enter initials: <input type="text" max="3" id="initials" />
-                    <button id="submit">Submit</button> -->
-                </p>
-            </div>
-
-            </div>
-            </div>
-
-            <body>
-            </body>
 
 
 

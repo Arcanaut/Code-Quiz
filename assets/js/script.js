@@ -1,12 +1,13 @@
 // let currentQuestionIndex = 0;
 
 
-const startButtonEl = document.getElementById("startButton");
+const beginButtonEl = document.getElementById("beginButton");
 const quiz = document.getElementById("quiz");
-const questionsBodyEl = document.getElementById("questions");
+const questionsBodyEl = document.getElementById("questions-container");
 const highscore = document.getElementById("highscore");
 const choicesEl = document.getElementById("choices");
 const feedbackEl = document.getElementById("feedback");
+const questionTitleEl = document.getElementById("questions-title")
 document.getElementById("initials")
 //this goes through the various questions in the array. 
 //variables for score and timer functions
@@ -66,14 +67,15 @@ function startTimer() {
         }
 
     }, 1000);
-    //changes the class of startButtonEl to "class" so that the css with the same name stops it from displaying
-    startButtonEl.setAttribute("class", "hidden")
+    //changes the class of beginButtonEl to "class" so that the css with the same name stops it from displaying
+    beginButtonEl.setAttribute("class", "hidden")
     renderQuestions();
 }
 
 //TODO: Rewrite renderQuestions so it isn't read as 'undefined in browser' 
 //https://developer.mozilla.org/en-US/docs/Web/API/Node/childNodes
 function renderQuestions() {
+    
     console.log('Yosemite Mudflap');
     let q = questions[currentQuestionIndex]
     let questionsEl = document.getElementById("question-title");
@@ -187,7 +189,7 @@ function startQuiz() {
     {
         // make the timer visible when begin button is clicked
         timerEl.classList.replace("d-none", "d-block");
-
+        beginButtonEl.setAttribute("class", "hidden")
         timeLeft = 60;
         document.getElementById("timeLeft").innerHTML = timeLeft;
 
