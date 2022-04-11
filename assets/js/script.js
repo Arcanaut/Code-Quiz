@@ -1,13 +1,12 @@
-// let currentQuestionIndex = 0;
 
 
 const beginButtonEl = document.getElementById("beginButton");
 const quiz = document.getElementById("quiz");
-const questionsBodyEl = document.getElementById("questions-container");
+const questionsContainerEl = document.getElementById("question-container");
 const highscore = document.getElementById("highscore");
 const choicesEl = document.getElementById("choices");
 const feedbackEl = document.getElementById("feedback");
-const questionTitleEl = document.getElementById("questions-title")
+const questionTitleEl = document.getElementById("questionTitle")
 document.getElementById("initials")
 //this goes through the various questions in the array. 
 //variables for score and timer functions
@@ -74,22 +73,35 @@ function startTimer() {
 
 //TODO: Rewrite renderQuestions so it isn't read as 'undefined in browser' 
 //https://developer.mozilla.org/en-US/docs/Web/API/Node/childNodes
-function renderQuestions() {
+// function renderQuestions() {
     
-    console.log('Yosemite Mudflap');
-    let q = questions[currentQuestionIndex]
-    let questionsEl = document.getElementById("question-title");
-    questionsEl.textContent = questions.questionTitle;
-    choicesEl.innerHTML = '';
-    q.choices.forEach((choice, i) => {
-        const choiceButton = document.createElement("button")
-        choiceButton.setAttribute("value", choice)
-        choiceButton.textContent = i + 1 + ". " + choice;
-        choiceButton.onclick = checkAnswer;
-        choicesEl.appendChild(choiceButton);
-    })
+//     console.log('Yosemite Mudflap');
+//     let q = questions[currentQuestionIndex]
+//     let questionsEl = document.getElementById("question-title");
+//     questionsEl.textContent = questions.questionTitle;
+//     choicesEl.innerHTML = '';
+//     q.choices.forEach((choice, i) => {
+//         const choiceButton = document.createElement("button")
+//         choiceButton.setAttribute("value", choice)
+//         choiceButton.textContent = i + 1 + ". " + choice;
+//         choiceButton.onclick = checkAnswer;
+//         choicesEl.appendChild(choiceButton);
+//     })
 
-};
+// };
+
+function renderQuestions(){
+    var currentQuestion = questions[currentQuestionIndex];
+    questionsContainerEl.children[0].textContent =currentQuestion.questionTitle
+    questionsContainerEl.choices.forEach((choice, i) => {
+                const choiceButton = document.createElement("button")
+                choiceButton.setAttribute("value", choice)
+                choiceButton.textContent = i + 1 + ". " + choice;
+                choiceButton.onclick = checkAnswer;
+                choicesEl.appendChild(choiceButton);
+            })
+}
+
 
 //compares the answer submitted to the correct one
 function checkAnswer(event) {
