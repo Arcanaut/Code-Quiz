@@ -5,7 +5,7 @@ const highscore = document.getElementById("highscore");
 const feedbackEl = document.getElementById("feedback");
 const questionTitleEl = document.getElementById("questionHeader")
 const questionAnswersEl = document.getElementById("questionAnswers")
-document.getElementById("initials")
+const initialsEl = document.getElementById("initials")
 //this goes through the various questions in the array. 
 //variables for score and timer functions
 var score = 0;
@@ -93,13 +93,13 @@ function startTimer() {
 function renderQuestions() {
     var q = questions[currentQuestionIndex];
     questionsContainerEl.children[0].textContent = q.questionTitle
-   
-   
+
+
     var choiceButton = document.createElement("button");
     choiceButton.textContent = q.choices[i];
     questionAnswersEl.appendChild(choiceButton);
-     // erase old text
-     while (questionAnswersEl.hasChildNodes()) {
+    // erase old text
+    while (questionAnswersEl.hasChildNodes()) {
         questionAnswersEl.removeChild(questionAnswersEl.lastChild);
     };
 
@@ -111,17 +111,17 @@ function renderQuestions() {
     };
 
     // create click listener for each answer choice
-    questionAnswersEl.children[0].addEventListener("click", function(event) {
-       checkAnswer(questionAnswersEl.children[0]);
+    questionAnswersEl.children[0].addEventListener("click", function (event) {
+        checkAnswer(questionAnswersEl.children[0]);
     });
-    questionAnswersEl.children[1].addEventListener("click", function(event) {
-       checkAnswer(questionAnswersEl.children[1]);
+    questionAnswersEl.children[1].addEventListener("click", function (event) {
+        checkAnswer(questionAnswersEl.children[1]);
     });
-    questionAnswersEl.children[2].addEventListener("click", function(event) {
-       checkAnswer(questionAnswersEl.children[2]);
+    questionAnswersEl.children[2].addEventListener("click", function (event) {
+        checkAnswer(questionAnswersEl.children[2]);
     });
-    questionAnswersEl.children[3].addEventListener("click", function(event) {
-       checkAnswer(questionAnswersEl.children[3]);
+    questionAnswersEl.children[3].addEventListener("click", function (event) {
+        checkAnswer(questionAnswersEl.children[3]);
     });
 
 }
@@ -154,30 +154,20 @@ function checkAnswer(event) {
 };
 //TODO: Finish setScore save function
 function setScore() {
-    var initials = $name.value
+    const initials = initialsEl.value.trim('')
 
     // make sure the user didn't leave it blank
-    if (initials === "") {
-        alert("Please enter your initials");
-        return;
-    } else {
-        var highscores;
-        if (JSON.parse(localStorage.getItem("highscores")) != null) {
-            highscores = JSON.parse(window.localStorage.getItem("highscores"));
-        } else {
-            //highscores array functions just like questions array
-            highscores = [];
-        };
-        // get the information for current user input
-        var newPlayerScore = {
-            initials: initials,
-            playerScore: score
-        };
-        highscores.push(newPlayerScore);
-        localStorage.setItem("highscores", JSON.stringify(highscores));
-        // send user to the high scores page
-        location.href = "leader-board.html";
-    };
+
+    if (initials !== "") {
+        var highscores = JSON.parse(window.localStorage.getItem('highscores')) || [];
+        var newScore = {
+            score: time,
+            initals: initals,
+        } 
+        highscores.push(newScore)
+        window.localStorage.setItem('highscores',JSON.stringify(highscores))
+        window.location.href = "leader-board.html"
+    }
 }
 
 
@@ -247,22 +237,22 @@ function startQuiz() {
 // view scores logic
 
 //TODO: Remove old save function, or add JQuery so lines 227-242 work
-// var saveScore = function() {
-//     localStorage.setItem("highScore", JSON.stringify(highScore));
-//   };
+var saveScore = function () {
+    localStorage.setItem("highScore", JSON.stringify(highScore));
+};
 
-//   var loadhighScore = function() {
-//     var savedHighScore = localStorage.getItem("highScoreName", "highScore");
-//     // if there are no highScore, set highScore to an empty array and return out of the function
-//     if (!savedHighScore) {
-//       return false;
-//     }
-//     console.log("Saved highScore found!");
-//     // else, load up saved highScore
+var loadhighScore = function () {
+    var savedHighScore = localStorage.getItem("highScoreName", "highScore");
+    // if there are no highScore, set highScore to an empty array and return out of the function
+    if (!savedHighScore) {
+        return false;
+    }
+    console.log("Saved highScore found!");
+    // else, load up saved highScore
 
-//     // parse into array of objects
-//     savedHighScore = JSON.parse(savedHighScore);
-//   }
+    // parse into array of objects
+    savedHighScore = JSON.parse(savedHighScore);
+}
 
 // //function createItem() {
 // 	localStorage.setItem('nameOfItem', 'value'); 
