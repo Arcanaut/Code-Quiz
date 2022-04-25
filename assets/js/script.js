@@ -6,6 +6,8 @@ const feedbackEl = document.getElementById("feedback");
 const questionTitleEl = document.getElementById("questionHeader")
 const questionAnswersEl = document.getElementById("questionAnswers")
 const initialsEl = document.getElementById("initials")
+const endScreenEl = document.getElementById("end-screen");
+const endScreenSubmitEl= document.getElementById("end-screen-submit");
 //this goes through the various questions in the array. 
 //variables for score and timer functions
 var score = 0;
@@ -153,22 +155,9 @@ function checkAnswer(event) {
     }
 };
 //TODO: Finish setScore save function
-function setScore() {
-    const initials = initialsEl.value.trim('')
-
-    // make sure the user didn't leave it blank
-
-    if (initials !== "") {
-        var highscores = JSON.parse(window.localStorage.getItem('highscores')) || [];
-        var newScore = {
-            score: time,
-            initals: initals,
-        } 
-        highscores.push(newScore)
-        window.localStorage.setItem('highscores',JSON.stringify(highscores))
-        window.location.href = "leader-board.html"
-    }
-}
+// function setScore() {
+    
+// }
 
 
 function endQuiz() {
@@ -181,7 +170,7 @@ function endQuiz() {
         <h3 class="text-white">Because of your speed and accuracy, you got ` + score + ` points!</h3>
         
         <input type="text" id="$name" required="required" placeholder="Enter initials">
-        <button class="btn btn-light mt-1" onclick="setScore()">Save score!</button>
+        <button class="btn btn-light mt-1" onclick="saveScore()">Save score!</button>
         </div>`;
 
     document.getElementById("final-score").innerHTML = quizContent;
@@ -236,9 +225,26 @@ function startQuiz() {
 }
 // view scores logic
 
-//TODO: Remove old save function, or add JQuery so lines 227-242 work
+
 var saveScore = function () {
-    localStorage.setItem("highScore", JSON.stringify(highScore));
+    console.log('DOM SUCKS AT BASKETBALL')
+    localStorage.setItem("highScore", JSON.stringify(highscore));
+
+    const initials = initialsEl.value.trim('')
+
+    // make sure the user didn't leave it blank
+
+    if (initials !== "") {
+        var highscores = JSON.parse(window.localStorage.getItem('highscores')) || [];
+        var newScore = {
+            score: timer,
+            initals: initials,
+        } 
+        highscores.push(newScore)
+        window.localStorage.setItem('highscores',JSON.stringify(highscores))
+        window.location.href = "leader-board.html"
+    }
+    
 };
 
 var loadhighScore = function () {
@@ -248,6 +254,7 @@ var loadhighScore = function () {
         return false;
     }
     console.log("Saved highScore found!");
+    
     // else, load up saved highScore
 
     // parse into array of objects
@@ -263,3 +270,5 @@ var loadhighScore = function () {
 // 	return localStorage.getItem('nameOfItem');  
 // } // Gets the value of 'nameOfItem' and returns it
 // console.log(getValue()); //'value';
+
+endScreenSubmitEl.addEventListener('click', saveScore)
